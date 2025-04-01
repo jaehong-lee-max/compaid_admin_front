@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useParams, useNavigate } from "react-router-dom";
+import Login from "./login/login";
+import Main from "./main/main";
+import Member from "./member/list";
+import Lnb from "./component/lnb";
+import "./App.css";
+import useStore from "./store";
+import axios from "axios";
 
 function App() {
+  const navigate = useNavigate();
+  const token = useStore((state) => state.token);
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, [sessionStorage.getItem("token")]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="wrap">
+        {sessionStorage.getItem("token") && <Lnb />}
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/member" element={<Member />} />
+        </Routes>
+      </div>
+    </>
   );
 }
 
