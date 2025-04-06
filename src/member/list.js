@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useStore from "../store";
 import Pagination from "../component/pagination";
+import Loading from "../component/loading";
 
 function Member() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ function Member() {
   const [simulTime, setSimulTime] = useState("");
   const [learnTime, setLearnTime] = useState("");
   const [optimizeTime, setOptimizeTime] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const itemsPerPage = 5;
   const setMenuCheckNumber = useStore((state) => state.setMenuCheckNumber);
@@ -25,6 +27,7 @@ function Member() {
   }, [currentPage]);
 
   const GetList = () => {
+    setIsLoading(true);
     axios
       .get(`http://115.145.165.212:8000/v1/user/list`, {
         headers: {
@@ -43,27 +46,35 @@ function Member() {
         const paginatedData = data.slice(startIndex, startIndex + itemsPerPage);
 
         setList(paginatedData);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setIsLoading(false);
         navigate("/login");
       });
   };
 
   const viewDetail = (id) => {
-    setIsPop(true);
+    setIsLoading(true);
+
     axios
       .get("http://115.145.165.212:8000/v1/user/detail?user_id=" + id)
       .then((response) => {
         console.log(response);
+        setIsPop(true);
         setDetailId(response.data.result.user_id);
         setUserName(response.data.result.name);
         setSimulTime(response.data.result.simulation_run_total_duration);
         setLearnTime(response.data.result.learn_run_total_duration);
         setOptimizeTime(response.data.result.optimization_run_total_duration);
+
+        setIsLoading(false);
       })
       .catch((error) => {
+        setIsLoading(false);
         console.log(error);
+        navigate("/login");
       });
   };
 
@@ -113,6 +124,12 @@ function Member() {
     );
   }
 
+  let loading;
+
+  if (isLoading) {
+    loading = <Loading />;
+  }
+
   return (
     <>
       <div className="content_pannel">
@@ -135,7 +152,7 @@ function Member() {
                 <td>{data.user_id}</td>
                 <td>{data.name}</td>
                 <td>{data.email}</td>
-                <td>{data.dt_created}</td>
+                <td>{data.dt_created.split("T")[0]}</td>
                 <td>{data.is_approved ? "승인" : "미승인"}</td>
                 <td>
                   {data.groups.length > 0
@@ -156,6 +173,7 @@ function Member() {
         />
       </div>
       {pop}
+      {loading}
     </>
   );
 }

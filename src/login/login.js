@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Route, Routes, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import useStore from "../store";
+import Loading from "../component/loading";
 
 function Login() {
   const navigate = useNavigate();
@@ -10,8 +11,11 @@ function Login() {
   const setToken = useStore((state) => state.setToken);
   const setUserName = useStore((state) => state.setUserName);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const login = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     let data = {
       email: id,
       password: pw,
@@ -28,12 +32,18 @@ function Login() {
 
         sessionStorage.setItem("userName", response.data.user.name);
         navigate("/member");
+
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setIsLoading(false);
       });
   };
-
+  let loading;
+  if (isLoading) {
+    loading = <Loading />;
+  }
   return (
     <>
       <div className="login_wrap">
@@ -66,6 +76,7 @@ function Login() {
           </div>
         </div>
       </div>
+      {loading}
     </>
   );
 }

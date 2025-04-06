@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import useStore from "../store";
 
 function Lnb() {
+  const navigate = useNavigate();
   const menuCheckNumber = useStore((state) => state.menuCheckNumber);
   const menuOpenClose = (e) => {
     if (e.target.classList.contains("upon")) {
@@ -24,18 +25,35 @@ function Lnb() {
     if (menuCheckNumber !== "") {
       console.log(menuCheckNumber);
       let menuFirst = document.querySelector(".menu_wrap > ul").children;
+      for (let i = 0; i < menuFirst.length; i++) {
+        menuFirst[i].classList.remove("ac");
+        menuFirst[i].children[0].style.display = "none";
+        let ch = menuFirst[i].children[0].children;
+        for (let ii = 0; ii < ch.length; ii++) {
+          ch[ii].classList.remove("ac");
+        }
+      }
       menuFirst[menuCheckNumber[0]].classList.add("ac");
       menuFirst[menuCheckNumber[0]].children[0].style.display = "block";
       menuFirst[menuCheckNumber[0]].children[0].children[
-        menuCheckNumber[0]
+        menuCheckNumber[1]
       ].classList.add("ac");
     }
   }, [menuCheckNumber]);
+
+  const logout = () => {
+    sessionStorage.removeItem("refresh");
+    sessionStorage.removeItem("sessionKey");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("userName");
+    navigate("/login");
+  };
 
   return (
     <>
       <div className="lnb">
         <h1>Compaid Admin</h1>
+        <div className="logout" onClick={logout}></div>
         <b>{sessionStorage.getItem("userName")}</b> 님 환영합니다.
         <div className="menu_wrap">
           <ul>
@@ -51,7 +69,7 @@ function Lnb() {
               시뮬레이션
               <ul style={{ display: "none" }}>
                 <li>
-                  <Link to="#">메인</Link>
+                  <Link to="/simulation">메인</Link>
                 </li>
               </ul>
             </li>

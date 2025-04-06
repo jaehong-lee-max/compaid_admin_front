@@ -3,6 +3,7 @@ import { Route, Routes, useParams, useNavigate } from "react-router-dom";
 import Login from "./login/login";
 import Main from "./main/main";
 import Member from "./member/list";
+import Simulation from "./simulation/list";
 import Lnb from "./component/lnb";
 import "./App.css";
 import useStore from "./store";
@@ -25,6 +26,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/member" element={<Member />} />
+          <Route path="/simulation" element={<Simulation />} />
         </Routes>
       </div>
     </>
