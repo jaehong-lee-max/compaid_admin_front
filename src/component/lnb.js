@@ -81,6 +81,14 @@ function Lnb() {
                 </li>
               </ul>
             </li>
+            <li onClick={menuOpenClose} className="upon">
+              공지사항 관리
+              <ul style={{ display: "none" }}>
+                <li>
+                  <Link to="/notice">리스트 조회</Link>
+                </li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
