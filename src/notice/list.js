@@ -307,6 +307,7 @@ function List() {
                 lineHeight: "19px",
                 display: "block",
                 height: "auto",
+                whiteSpace: "pre-wrap",
               }}
             >
               {detailContent}
