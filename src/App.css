@@ -787,3 +787,101 @@ html {
   background: url("./img/logout.png") no-repeat;
   background-size: 100% 100%;
 }
+
+.button_area {
+  width: 100%;
+  height: 30px;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.write_btn {
+  width: 120px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+  color: White;
+  background: gray;
+  cursor: pointer;
+  font-size: 15px;
+}
+.write_btn:hover {
+  background: black;
+}
+
+.write_pop_wrap {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+}
+
+.write_pop_wrap .write_pop {
+  width: 1100px;
+  height: 700px;
+  position: relative;
+  background: white;
+  padding: 20px;
+  padding-top: 70px;
+}
+.write_pop_wrap .write_pop .detail_pop_itself_X {
+  width: 50px;
+  height: 49px;
+  background: #f4f4f4;
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 15px;
+  font-weight: bold;
+  color: black;
+  z-index: 9999;
+}
+
+.write_pop_wrap .write_pop .detail_pop_itself_X:hover {
+  background: red;
+  color: white;
+}
+.write_pop_wrap .write_pop .wirte_pop_title {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #d4d4d4;
+  position: absolute;
+  padding-left: 20px;
+  top: 0px;
+  left: 0px;
+  font-size: 17px;
+  font-weight: normal;
+}
+.write_pop_wrap .write_pop input[type="text"] {
+  width: 100%;
+  height: 34px;
+  border: 1px solid #d4d4d4;
+  padding-left: 14px;
+  font-size: 16px;
+  font-weight: normal;
+  color: black;
+  margin-bottom: 20px;
+}
+.write_pop_wrap .write_pop textarea {
+  width: 100%;
+  height: 500px;
+  border: 1px solid #d4d4d4;
+  resize: none;
+  outline: none;
+  padding: 20px;
+  font-size: 14px;
+  font-weight: normal;
+  color: black;
+  line-height: 19px;
+  margin-bottom: 20px;
+}
