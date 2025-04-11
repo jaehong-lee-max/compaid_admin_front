@@ -106,15 +106,15 @@ function Member() {
                 </tr>
                 <tr>
                   <th>시뮬레이션 총시간</th>
-                  <td>{simulTime} h</td>
+                  <td>{Number(simulTime) / 3600} h</td>
                 </tr>
                 <tr>
                   <th>학습 총시간</th>
-                  <td>{learnTime} h</td>
+                  <td>{Number(learnTime) / 3600} h</td>
                 </tr>
                 <tr>
                   <th>최적화 총시간</th>
-                  <td>{optimizeTime} h</td>
+                  <td>{Number(optimizeTime) / 3600} h</td>
                 </tr>
               </tbody>
             </table>

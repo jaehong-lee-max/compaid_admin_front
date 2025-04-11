@@ -183,6 +183,23 @@ function List() {
       });
   };
 
+  const deletion = (id) => {
+    setIsLoading(true);
+    axios
+      .delete(`http://localhost:3000/notice/${id}`)
+      .then((response) => {
+        console.log(response);
+        setIsLoading(false);
+        alert("삭제되었습니다.");
+        GetList();
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+        navigate("/login");
+      });
+  };
+
   let writePop;
 
   if (iswritepop) {
@@ -224,6 +241,7 @@ function List() {
       </>
     );
   }
+
   let recorrect_pop;
 
   if (isrecorrect) {
@@ -336,7 +354,14 @@ function List() {
             수정
           </button>
           {"  "}
-          <button className="write_btn">삭제</button>
+          <button
+            className="write_btn"
+            onClick={() => {
+              deletion(selectedId);
+            }}
+          >
+            삭제
+          </button>
           {"  "}
           <button
             className="write_btn"
